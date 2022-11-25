@@ -23,13 +23,30 @@ void Game::Init(const WindowInfo& info)
 	GEngine->GetCmdQueue()->WaitSync();
 
 }
-
+float col = -1.0f;
 void Game::Update()
 {
 	GEngine->RenderBegin();
 
 	shader->Update();
-	mesh->Render();
+	
+	col += 0.001f;
+	{
+		Transform t;
+		t.offset = Vec4(col, 0.f, 0.5f, 0.f);
+		mesh->SetTransform(t);
+
+		mesh->Render();
+	}
+
+
+	{
+		Transform t;
+		t.offset = Vec4(0.f, 0.75f, 0.f, 0.f);
+		mesh->SetTransform(t);
+
+		mesh->Render();
+	}
 
 	GEngine->RenderEnd();
 }
